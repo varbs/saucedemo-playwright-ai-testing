@@ -20,10 +20,10 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test
         env:
-          BASE_URL: ${{ secrets.BASE_URL }}
-          STANDARD_USER: ${{ secrets.STANDARD_USER }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          LOCKED_OUT_USER: ${{ secrets.LOCKED_OUT_USER }}
+          BASE_URL: ${{ vars.BASE_URL }}
+          STANDARD_USER: ${{ vars.STANDARD_USER }}
+          PASSWORD: ${{ vars.PASSWORD }}
+          LOCKED_OUT_USER: ${{ vars.LOCKED_OUT_USER }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
