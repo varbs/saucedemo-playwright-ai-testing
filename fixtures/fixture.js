@@ -4,6 +4,7 @@ const { LoginPage } = require('../pages/LoginPage');
 const { InventoryPage } = require('../pages/InventoryPage');
 const { ProductDetailPage } = require('../pages/ProductDetailPage');
 const { CartPage } = require('../pages/CartPage');
+const { CheckoutPage } = require('../pages/CheckoutPage');
 
 /**
  * Page objects available to every test.
@@ -12,6 +13,7 @@ const { CartPage } = require('../pages/CartPage');
  *  inventoryPage: InventoryPage
  *  productDetailPage: ProductDetailPage
  *  cartPage: CartPage
+ *  checkoutPage: CheckoutPage
  * }} PageFixtures
  */
 
@@ -37,6 +39,10 @@ const test = base.test.extend(
 
     cartPage: async ({ page }, use) => {
       await use(new CartPage(page));
+    },
+
+    checkoutPage: async ({ page }, use) => {
+      await use(new CheckoutPage(page));
     },
   })
 );
