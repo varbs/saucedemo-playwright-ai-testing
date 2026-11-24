@@ -12,9 +12,6 @@ class LoginPage extends BasePage {
     this.passwordInput = page.getByTestId('password');
     this.loginButton = page.getByTestId('login-button');
     this.errorMessage = page.getByTestId('error');
-
-    this.productTitle = page.getByTestId('title');
-    this.inventoryList = page.getByTestId('inventory-list');
   }
 
   async open() {
@@ -31,15 +28,20 @@ class LoginPage extends BasePage {
     await this.loginButton.click();
   }
 
-  async verifyValidLogin(){
-    await expect(this.page).toHaveURL(/\/inventory\.html$/);
-    await expect(this.productTitle).toHaveText('Products');
-    await expect(this.inventoryList).toBeVisible();
+  /** 
+ * Verifies that the error message is visible and contains the expected text
+ * @param {string} expectedMessage
+ */
+  async verifyErrorMessageVisible(expectedMessage) {
+    await expect(this.errorMessage).toBeVisible();
+    await expect(this.errorMessage).toContainText(expectedMessage);
   }
 
-  async verifyErrorMessageVisible() {
-    await expect(this.errorMessage).toBeVisible();
-    await expect(this.errorMessage).toContainText('Sorry, this user has been locked out');
+  async verifyLoginPageVisible(){
+    await expect(this.page).toHaveURL(/.*\/$/);
+    await expect(this.usernameInput).toBeVisible();
+    await expect(this.passwordInput).toBeVisible();
+    await expect(this.loginButton).toBeVisible();
   }
 }
 
