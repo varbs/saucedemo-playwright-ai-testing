@@ -23,7 +23,10 @@ class ProductDetailPage extends BasePage {
         await expect(this.productDescription).toBeVisible();
         await expect(this.productPrice).toBeVisible();
         // Either Add to cart or Remove button should be visible
-        await expect(this.addToCartButton.or(this.removeButton)).toBeVisible();
+        await expect(this.addToCartButton).toBeVisible({ timeout: 5000 }).catch(() => {
+            // If Add to cart is not visible, check Remove
+            return expect(this.removeButton).toBeVisible();
+        });
     }
 
     async verifyProductDetails(product) {

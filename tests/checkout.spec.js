@@ -33,8 +33,8 @@ test.describe('Checkout Page', () => {
         await checkoutPage.fillCheckoutInfo('', 'Doe', '12345');
         await checkoutPage.clickContinue();
 
-        // Should stay on step one with error
-        await expect(checkoutPage.page.locator('[data-test="error"]')).toBeVisible();
+        await expect(checkoutPage.page.getByTestId('error')).toBeVisible();
+        await expect(checkoutPage.page.getByTestId('error')).toHaveText('Error: First Name is required');
     });
 
     test('TC-CHECKOUT-3 - Verify error when last name is empty', async ({ inventoryPage, cartPage, checkoutPage }) => {
@@ -48,7 +48,8 @@ test.describe('Checkout Page', () => {
         await checkoutPage.fillCheckoutInfo('John', '', '12345');
         await checkoutPage.clickContinue();
 
-        await expect(checkoutPage.page.locator('[data-test="error"]')).toBeVisible();
+        await expect(checkoutPage.page.getByTestId('error')).toBeVisible();
+        await expect(checkoutPage.page.getByTestId('error')).toHaveText('Error: Last Name is required');
     });
 
     test('TC-CHECKOUT-4 - Verify error when postal code is empty', async ({ inventoryPage, cartPage, checkoutPage }) => {
@@ -62,7 +63,8 @@ test.describe('Checkout Page', () => {
         await checkoutPage.fillCheckoutInfo('John', 'Doe', '');
         await checkoutPage.clickContinue();
 
-        await expect(checkoutPage.page.locator('[data-test="error"]')).toBeVisible();
+        await expect(checkoutPage.page.getByTestId('error')).toBeVisible();
+        await expect(checkoutPage.page.getByTestId('error')).toHaveText('Error: Postal Code is required');
     });
 
     test('TC-CHECKOUT-5 - Verify checkout step two displays order summary', async ({ inventoryPage, cartPage, checkoutPage }) => {
