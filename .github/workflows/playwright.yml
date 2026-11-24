@@ -24,6 +24,7 @@ jobs:
           STANDARD_USER: ${{ vars.STANDARD_USER }}
           PASSWORD: ${{ vars.PASSWORD }}
           LOCKED_OUT_USER: ${{ vars.LOCKED_OUT_USER }}
+          WRONG_PASSWORD: ${{ vars.WRONG_PASSWORD }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
