@@ -1,35 +1,37 @@
 const products = {
     backpack: {
         name: 'Sauce Labs Backpack',
-        price: 29.99
+        price: 29.99,
+        id: 4
     },
     bikeLight: {
         name: 'Sauce Labs Bike Light',
-        price: 9.99
+        price: 9.99,
+        id: 0
     },
     boltShirt: {
         name: 'Sauce Labs Bolt T-Shirt',
-        price: 15.99
+        price: 15.99,
+        id: 1
     },
     fleece: {
         name: 'Sauce Labs Fleece Jacket',
-        price: 49.99
+        price: 49.99,
+        id: 5
+    },
+    onesie: {
+        name: 'Sauce Labs Onesie',
+        price: 7.99,
+        id: 2
+    },
+    redTshirt: {
+        name: 'Test.allTheThings() T-Shirt (Red)',
+        price: 15.99,
+        id: 3
     }
 };
 
 const productCount = Object.keys(products).length;
-
-const productTestData = {
-    productCount,
-    cartBadgeProducts:
-        [
-            products.backpack.name,
-            products.bikeLight.name,
-            products.boltShirt.name
-        ],
-    singleProduct: products.backpack.name,
-    allProductNames: Object.values(products).map(p => p.name),
-};
 
 const cartBadgeScenarios = [
     {
@@ -70,4 +72,4 @@ const cartBadgeRemoveScenarios = [
     }
 ];
 
-module.exports = { products, productTestData, cartBadgeScenarios, cartBadgeRemoveScenarios }
+module.exports = { products, cartBadgeScenarios, cartBadgeRemoveScenarios }

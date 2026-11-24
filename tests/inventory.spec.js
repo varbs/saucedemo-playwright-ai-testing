@@ -21,25 +21,30 @@ test.describe('Inventory Page', () => {
         await inventoryPage.verifySortingDropdownVisible();
     });
 
+    let sortIndex = 1;
     for (const scenario of sortScenarios) {
-        test(`Verify products are sorted by ${scenario.name}`, async ({ inventoryPage }) => {
+        test(`TC-INVENTORY-SORT-${sortIndex} - Verify products are sorted by ${scenario.name}`, async ({ inventoryPage }) => {
             await inventoryPage.sortProducts(scenario.value);
             await inventoryPage.verifySelectedSortOption(scenario.value);
             await inventoryPage.verifyProductsSorted(scenario.value);
         });
+        sortIndex++;
     } 
 
+    let cartAddIndex = 1;
     for (const scenario of cartBadgeScenarios) {
-        test(`Verify cart badge shows ${scenario.expectedCount} after adding ${scenario.description}`, async ({ inventoryPage }) => {
+        test(`TC-INVENTORY-CART-${cartAddIndex} - Verify cart badge shows ${scenario.expectedCount} after adding ${scenario.description}`, async ({ inventoryPage }) => {
             for(const name of scenario.productNames) {
                 await inventoryPage.addProductToCart(name);
             }
             await inventoryPage.verifyCartBadgeCount(scenario.expectedCount);
-        })
-    };
+        });
+        cartAddIndex++;
+    }
 
+    let cartRemoveIndex = 1;
     for (const scenario of cartBadgeRemoveScenarios) {
-        test(`Verify cart badge after we ${scenario.description}`, async ({ inventoryPage }) => {
+        test(`TC-INVENTORY-CART-${cartRemoveIndex} - Verify cart badge after we ${scenario.description}`, async ({ inventoryPage }) => {
             for(const name of scenario.add) {
                 await inventoryPage.addProductToCart(name);
             }
@@ -50,7 +55,7 @@ test.describe('Inventory Page', () => {
             }
             await inventoryPage.verifyCartBadgeCount(scenario.expectedCount);
         });
+        cartRemoveIndex++;
     }
 });
 
-//comment test

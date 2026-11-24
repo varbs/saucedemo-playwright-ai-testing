@@ -21,6 +21,7 @@ class InventoryPage extends BasePage {
         this.sortDropdown = page.getByTestId('product-sort-container');
 
         this.cartBadge = page.getByTestId('shopping-cart-badge');
+        this.cartLink = page.getByTestId('shopping-cart-link');
     }
 
     async logout() {
@@ -32,13 +33,9 @@ class InventoryPage extends BasePage {
         await this.menuButton.click();
     }
 
-    async closeMenu() {
-        await this.menuButton.click();
-    }
-
     /**
-     * 
-     * @param {'az' | 'za' | 'lohi', 'hilo'} sortOption 
+     *
+     * @param {'az' | 'za' | 'lohi' | 'hilo'} sortOption
      */
 
     async sortProducts(sortOption) {
@@ -72,9 +69,7 @@ class InventoryPage extends BasePage {
     }
 
     async verifyProductsDisplayed() {
-        const count = await this.inventoryItems.count();
-
-        expect(count).toBeGreaterThan(1);
+        await expect(this.inventoryItems).toHaveCount(6);
         await expect(this.productNames.first()).toBeVisible();
         await expect(this.productPrices.first()).toBeVisible();
     }
@@ -84,8 +79,8 @@ class InventoryPage extends BasePage {
     }
 
     /**
-     * 
-     * @param {'az' | 'za' | 'lohi'| 'hilo'} sortOption 
+     *
+     * @param {'az' | 'za' | 'lohi' | 'hilo'} sortOption
      */
     async verifySelectedSortOption(sortOption) {
         await expect(this.sortDropdown).toHaveValue(sortOption);
@@ -93,8 +88,8 @@ class InventoryPage extends BasePage {
 
 
     /**
-     * 
-     * @param {'az' | 'za' | 'lohi'| 'hilo'} sortOption 
+     *
+     * @param {'az' | 'za' | 'lohi' | 'hilo'} sortOption
      */
     async verifyProductsSorted(sortOption) {
         await expect(this.productNames).toHaveCount(6);
@@ -138,6 +133,21 @@ class InventoryPage extends BasePage {
         } else {
             await expect(this.cartBadge).toHaveText(String(count));
         }
+    }
+
+    async clickProductName(productName) {
+        await this.inventoryItems
+            .filter({ hasText: productName })
+            .getByTestId('inventory-item-name')
+            .click();
+    }
+
+    async goto() {
+        await this.page.goto('/inventory.html');
+    }
+
+    async goToCart() {
+        await this.cartLink.click();
     }
 }
 
